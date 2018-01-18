@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breadsite</title>
+</head>
+<body>
+<heading>Breadsite</heading>
+<p>Recent blogs:</p>
+{% if latest_blogs_list %}
+    <ul>
+    {% for blog in latest_blogs_list %}
+        <li><a href="/blogs/{{ blog.id }}/">{{ blog.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No blogs are available.</p>
+{% endif %}
+</body>
+</html>

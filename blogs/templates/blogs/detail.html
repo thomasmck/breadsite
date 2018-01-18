@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breadsite</title>
+</head>
+<body>
+<heading>Blog</heading>
+{% if blog %}
+    <p>{{ blog.content }}</p>
+    <p>{{ blog.author }}</p>
+{% else %}
+    <p>No blogs are available.</p>
+{% endif %}
+</body>
+</html>
