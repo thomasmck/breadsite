@@ -7,6 +7,8 @@
 <body>
 <heading>Breadsite</heading>
 <p>Recent blogs:</p>
+{% load static %}
+<img src="{% static "home/graph.png" %}" alt="My image"/>
 {% if latest_blogs_list %}
     <ul>
     {% for blog in latest_blogs_list %}

@@ -22,9 +22,9 @@ def getImage(request):
     canvas = pylab.get_current_fig_manager().canvas
     canvas.draw()
     pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
-    pilImage.save(buffer, "PNG")
+    pilImage.save("./home/static/home/graph.png")
+    print("HERE")
     pylab.close()
-    return buffer
 
 def index(request):
     latest_blogs_list = BlogPost.objects.order_by('pub_date')[:5]
@@ -32,6 +32,6 @@ def index(request):
     context = {
         'latest_blogs_list': latest_blogs_list,
     }
-    buffer = getImage(request)
-    # return HttpResponse(template.render(context, request))
-    return HttpResponse(buffer.getvalue(), content_type="image/png")
+    getImage(request)
+    return HttpResponse(template.render(context, request))
+    # return HttpResponse(buffer.getvalue(), content_type="image/png")
