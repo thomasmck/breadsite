@@ -18,3 +18,10 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Temperature(models.Model):
+    rec_date = models.DateTimeField('datetime recorded')
+    temp = models.FloatField()
+
+

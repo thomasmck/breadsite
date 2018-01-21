@@ -1,20 +1,28 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import BlogPost, Author
+from .models import BlogPost, Author, Temperature
+import matplotlib
+matplotlib.use('Agg')
 from matplotlib import pylab
 from pylab import *
 import PIL, PIL.Image, io
 
 def getImage(request):
     # Construct the graph
-    x = arange(0, 2*pi, 0.01)
-    s = cos(x)**2
-    plot(x, s)
+    x = []
+    s = []
+    target = []
+    temps = Temperature.objects.order_by('rec_date')[:10]
+    for temp in temps:
+        x.append(temp.rec_date)
+        s.append(temp.temp)
+        target.append(20.0)
+    plot(x, s, x, target)
 
     xlabel('xlabel(X)')
     ylabel('ylabel(Y)')
-    title('Simple Graph!')
+    title('Bread Box Temperature Control')
     grid(True)
 
     # Store image in a string buffer
@@ -23,7 +31,6 @@ def getImage(request):
     canvas.draw()
     pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
     pilImage.save("./home/static/home/graph.png")
-    print("HERE")
     pylab.close()
 
 def index(request):
