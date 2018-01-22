@@ -10,7 +10,7 @@ int pinState = 0;
 void setup() {
   // put your setup code here, to run once:
   pinMode(pinOut, OUTPUT);
-  digitalWrite(pinOut, LOW);
+  digitalWrite(pinOut, HIGH);
   Serial.begin(9600); 
   // Start up the library 
   sensors.begin(); 
@@ -20,9 +20,12 @@ void loop() {
   sensors.requestTemperatures();
   int temperature = sensors.getTempCByIndex(0);
   Serial.print(temperature);
+  // Logic currently the wrong way round to avoid heater being always on
+  if (temperature > 25) {
+    digitalWrite(pinOut, LOW);
+  }
+  else digitalWrite(pinOut, HIGH);
   // Delay for a second before re-reading
   delay(1000);
-  if (temperature > 25) digitalWrite(pinOut, HIGH);
-  else digitalWrite(pinOut, LOW);
   
 }
