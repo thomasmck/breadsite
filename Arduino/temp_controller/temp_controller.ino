@@ -12,18 +12,15 @@ void setup() {
   pinMode(pinOut, OUTPUT);
   digitalWrite(pinOut, LOW);
   Serial.begin(9600); 
-  Serial.println("Dallas Temperature IC Control Library Demo"); 
   // Start up the library 
   sensors.begin(); 
 }
 
 void loop() {
-  sensors.requestTemperatures(); // Send the command to get temperature readings 
- /********************************************************************/
-  Serial.print("Temperature is: ");
+  sensors.requestTemperatures();
   int temperature = sensors.getTempCByIndex(0);
   Serial.print(temperature);
-  Serial.print("\n"); 
+  // Delay for a second before re-reading
   delay(1000);
   if (temperature > 25) digitalWrite(pinOut, HIGH);
   else digitalWrite(pinOut, LOW);
