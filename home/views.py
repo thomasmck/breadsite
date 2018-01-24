@@ -13,7 +13,11 @@ def getImage(request):
     x = []
     s = []
     target = []
-    temps = Temperature.objects.order_by('rec_date')[:10]
+    # Need a way to distinguish between different runs
+    temp_latest = Temperature.objects.order_by('-rec_date')[0]
+    temps = Temperature.objects.filter(rec_date__year=temp_latest.rec_date.year,
+                             rec_date__month=temp_latest.rec_date.month,
+                             rec_date__day=temp_latest.rec_date.day)
     for temp in temps:
         x.append(temp.rec_date)
         s.append(temp.temp)
