@@ -11,7 +11,7 @@ ser.baudrate=9600
 
 
 while True:
-    read_ser=int(ser.readline())
+    read_ser=float(ser.readline())
     print(read_ser)
     print(datetime.now())
     c.execute('INSERT INTO home_temperature (rec_date, temp) VALUES (?,?)', (datetime.now(), read_ser))

@@ -18,7 +18,7 @@ void setup() {
 
 void loop() {
   sensors.requestTemperatures();
-  int temperature = sensors.getTempCByIndex(0);
+  float temperature = sensors.getTempCByIndex(0);
   Serial.print(temperature);
   Serial.print("\n");
   // Logic currently the wrong way round to avoid heater being always on
