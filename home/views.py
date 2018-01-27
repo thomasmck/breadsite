@@ -22,10 +22,12 @@ def getImage(request):
         x.append(temp.rec_date)
         s.append(temp.temp)
         target.append(20.0)
-    plot(x, s, x, target)
+    date_line, = plot(x, s)
+    target_line, = plot(x, target)
 
-    xlabel('xlabel(X)')
-    ylabel('ylabel(Y)')
+    xlabel('Time')
+    ylabel('Temperature (°C)')
+    legend([date_line, target_line], ["Data", "Target"])
     title('Bread Box Temperature Control')
     grid(True)
 

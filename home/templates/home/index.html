@@ -1,22 +1,37 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Breadsite</title>
-</head>
-<body>
-<heading>Breadsite</heading>
-{% load static %}
-<img src="{% static "home/graph.png" %}" alt="My image"/>
-<p>Recent blogs:</p>
-{% if latest_blogs_list %}
-    <ul>
-    {% for blog in latest_blogs_list %}
-        <li><a href="/blogs/{{ blog.id }}/">{{ blog.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No blogs are available.</p>
-{% endif %}
-</body>
+    <head>
+        <title>Breadsite</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="page-header">
+            <h1><a href="/home/">Breadsite</a></h1>
+        </div>
+        <div class="content container">
+            {% load static %}
+            <img src="{% static "home/graph.png" %}" alt="My image"/>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="post">
+                        <h1>Recent blogs:</h1>
+                        {% if latest_blogs_list %}
+                            <ul>
+                            {% for blog in latest_blogs_list %}
+                                <li><a href="/blogs/{{ blog.id }}/">{{ blog.title }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No blogs are available.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
