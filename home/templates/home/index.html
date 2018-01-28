@@ -21,11 +21,18 @@
                     <div class="post">
                         <h1>Recent blogs:</h1>
                         {% if latest_blogs_list %}
-                            <ul>
+                            <table style="width:100%;">
                             {% for blog in latest_blogs_list %}
-                                <li><a href="/blogs/{{ blog.id }}/">{{ blog.title }}</a></li>
+                                <tr class="lb">
+                                    <td><h4><a href="/blogs/{{ blog.id }}/">{{ blog.title }}</a></h4></td>
+                                    <td><p><a href="/author/{{ blog.author_id }}/">{{ blog.author }}</a></p></td>
+                                </tr>
+                                <tr class="bb">
+                                    <td><p>{{ blog.content }}</p></td>
+                                    <td><p></p></td>
+                                </tr>
                             {% endfor %}
-                            </ul>
+                            </table>
                         {% else %}
                             <p>No blogs are available.</p>
                         {% endif %}
