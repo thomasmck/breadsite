@@ -7,13 +7,15 @@ matplotlib.use('Agg')
 from matplotlib import pylab
 from pylab import *
 import PIL, PIL.Image, io
+import numpy as np
 
-def getImage(request):
+def generateGraphImage(request):
     # Construct the graph
     x = []
     s = []
     target = []
-    # Need a way to distinguish between different runs
+    target_temp = 20.0
+    # Display all the temperature data from the last day with data
     temp_latest = Temperature.objects.order_by('-rec_date')[0]
     temps = Temperature.objects.filter(rec_date__year=temp_latest.rec_date.year,
                              rec_date__month=temp_latest.rec_date.month,
@@ -21,7 +23,8 @@ def getImage(request):
     for temp in temps:
         x.append(temp.rec_date)
         s.append(temp.temp)
-        target.append(20.0)
+        target.append(target_temp)
+
     date_line, = plot(x, s)
     target_line, = plot(x, target)
 
@@ -36,15 +39,26 @@ def getImage(request):
     canvas = pylab.get_current_fig_manager().canvas
     canvas.draw()
     pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+    # Construct a static image which we include in the view
     pilImage.save("./home/static/home/graph.png")
     pylab.close()
 
+def calculateStats():
+    # Calculate standard deviation, mean, etc
+    # Track changes in std dev over time
+    temps = Temperature.objects.values_list('temp', flat=True)
+    std_dev = np.std(temps)
+    print(std_dev)
+    return std_dev
+
 def index(request):
     latest_blogs_list = BlogPost.objects.order_by('pub_date')[:5]
+    stats = calculateStats()
     template = loader.get_template('home/index.html')
     context = {
         'latest_blogs_list': latest_blogs_list,
+        'stats': stats,
     }
-    getImage(request)
+    generateGraphImage(request)
     return HttpResponse(template.render(context, request))
     # return HttpResponse(buffer.getvalue(), content_type="image/png")

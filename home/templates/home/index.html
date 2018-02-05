@@ -18,6 +18,9 @@
             <img src="{% static "home/graph.png" %}" alt="My image"/>
             <div class="row">
                 <div class="col-md-8">
+                    <div>
+                        <p>{{ stats }}</p>
+                    </div>
                     <div class="post">
                         <h1>Recent blogs:</h1>
                         {% if latest_blogs_list %}
