@@ -21,11 +21,11 @@ void loop() {
   float temperature = sensors.getTempCByIndex(0);
   Serial.print(temperature);
   Serial.print("\n");
-  // Logic currently the wrong way round to avoid heater being always on
-  if (temperature > 25) {
-    digitalWrite(pinOut, LOW);
+  // Aiming for 24 degrees C based on https://www.weekendbakery.com/posts/a-few-tips-on-dough-temperature/
+  if (temperature > 24) {
+    digitalWrite(pinOut, HIGH);
   }
-  else digitalWrite(pinOut, HIGH);
+  else digitalWrite(pinOut, LOW);
   // Delay for a second before re-reading
   delay(1000);
   

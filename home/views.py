@@ -8,8 +8,35 @@ from matplotlib import pylab
 from pylab import *
 import PIL, PIL.Image, io
 import numpy as np
+import datetime
 
-def generateGraphImage(request):
+def generate_graph_image(data):
+    # Line format [["title", "file_name"], [x, y, "x_label", "y_label", "line_label"], etc]
+    # Construct the graph
+
+    lines = []
+    names = []
+    for i in range(1, len(data)):
+        line, = plot(data[i][0], data[i][1])
+        lines.append(line)
+        names.append(data[i][4])
+
+    xlabel(data[1][2])
+    ylabel(data[1][3])
+    legend(lines, names)
+    title(data[0][0])
+    grid(True)
+
+    # Store image in a string buffer
+    buffer = io.BytesIO()
+    canvas = pylab.get_current_fig_manager().canvas
+    canvas.draw()
+    pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+    # Construct a static image which we include in the view
+    pilImage.save("./home/static/home/%s.png" % data[0][1])
+    pylab.close()
+
+def generate_temp_graph(request):
     # Construct the graph
     x = []
     s = []
@@ -25,40 +52,59 @@ def generateGraphImage(request):
         s.append(temp.temp)
         target.append(target_temp)
 
-    date_line, = plot(x, s)
-    target_line, = plot(x, target)
+    data = [['Bread Box Temperature Control', 'graph'],[x, s, 'Time', 'Temperature (°C)', "Data"],[x, target, 'Time', 'Temperature (°C)', "Target"]]
+    generate_graph_image(data)
 
-    xlabel('Time')
-    ylabel('Temperature (°C)')
-    legend([date_line, target_line], ["Data", "Target"])
-    title('Bread Box Temperature Control')
-    grid(True)
-
-    # Store image in a string buffer
-    buffer = io.BytesIO()
-    canvas = pylab.get_current_fig_manager().canvas
-    canvas.draw()
-    pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
-    # Construct a static image which we include in the view
-    pilImage.save("./home/static/home/graph.png")
-    pylab.close()
-
-def calculateStats():
+def calculate_total_stats():
     # Calculate standard deviation, mean, etc
     # Track changes in std dev over time
     temps = Temperature.objects.values_list('temp', flat=True)
     std_dev = np.std(temps)
-    print(std_dev)
-    return std_dev
+    mean = np.mean(temps)
+    return np.around([std_dev, mean], decimals=1)
+
+def get_separate_runs():
+    temps = Temperature.objects.order_by('-rec_date')
+    temp_runs = []
+    run = []
+    time_range = temps[0].rec_date - datetime.timedelta(seconds=10)
+    for temp in temps:
+        if temp.rec_date < time_range:
+            temp_runs.append(run)
+            run = []
+        run.append(temp.temp)
+        time_range = temp.rec_date - datetime.timedelta(seconds=10)
+    return temp_runs
+
+def calculate_running_stats():
+    runs = get_separate_runs()
+    std_devs = []
+    for run in runs:
+        n = 1
+        std_dev = np.std(run)
+        std_devs.append(std_dev)
+    return std_devs
+
+def generate_stddev_graph(request):
+    std_devs = calculate_running_stats()
+    y = []
+    n = 1
+    for std_dev in std_devs:
+        y.append(n)
+        n += 1
+
+    data = [['Bread Box Temperature Control', 'stddev'], [y, std_devs, 'Run no.','Std dev', "Data"]]
+    generate_graph_image(data)
 
 def index(request):
     latest_blogs_list = BlogPost.objects.order_by('pub_date')[:5]
-    stats = calculateStats()
+    stats = calculate_total_stats()
     template = loader.get_template('home/index.html')
     context = {
         'latest_blogs_list': latest_blogs_list,
-        'stats': stats,
+        'stddev': stats[0],
+        'mean': stats[1],
     }
-    generateGraphImage(request)
+    generate_temp_graph(request)
+    generate_stddev_graph(request)
     return HttpResponse(template.render(context, request))
-    # return HttpResponse(buffer.getvalue(), content_type="image/png")

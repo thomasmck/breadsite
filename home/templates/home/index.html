@@ -18,8 +18,19 @@
             <img src="{% static "home/graph.png" %}" alt="My image"/>
             <div class="row">
                 <div class="col-md-8">
+                    <table>
+                        <thead><h1>All time stats</h1></thead>
+                        <tr class="lb">
+                            <td><h4>Std dev</h4></td>
+                            <td><h4>Mean</h4></td>
+                        </tr>
+                        <tr class="bb">
+                            <td><p>{{ stddev }}</p></td>
+                            <td><p>{{ mean }}</p></td>
+                        </tr>
+                    </table>
                     <div>
-                        <p>{{ stats }}</p>
+                        <p>{{ runs }}</p>
                     </div>
                     <div class="post">
                         <h1>Recent blogs:</h1>
