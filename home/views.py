@@ -10,6 +10,8 @@ import PIL, PIL.Image, io
 import numpy as np
 import pandas
 import datetime
+import sqlite3
+import matplotlib.pyplot as plt
 
 def generate_graph_image(data):
     # Line format [["title", "file_name"], [x, y, "x_label", "y_label", "line_label"], etc]
@@ -17,17 +19,25 @@ def generate_graph_image(data):
 
     lines = []
     names = []
+
+    fig, ax1 = plt.subplots()
+    plot_axis = {"1": ax1}
+    colour_options = ['C0', 'C1', 'C2', 'C3', 'C4']
+    if len(data) > 2:
+        for i in range(2, len(data)):
+            ax = ax1.twinx()
+            plot_axis[str(i)] = ax
     for i in range(1, len(data)):
-        line, = plot(data[i][0], data[i][1])
+        ax = plot_axis[str(i)]
+        line, = ax.plot(data[i][0], data[i][1], colour_options[i])
         lines.append(line)
         names.append(data[i][4])
+        ax.set_ylabel(data[i][3])
 
-    xlabel(data[1][2])
-    ylabel(data[1][3])
+    ax.set_xlabel(data[1][2])
     legend(lines, names)
     title(data[0][0])
     grid(True)
-
     # Store image in a string buffer
     buffer = io.BytesIO()
     canvas = pylab.get_current_fig_manager().canvas
@@ -62,8 +72,6 @@ def calculate_total_stats():
     temps = Temperature.objects.values_list('temp', flat=True)
     std_dev = np.std(temps)
     mean = np.mean(temps)
-    columns = ["rec_date", "temp"]
-    import sqlite3
     conn = sqlite3.connect("db.sqlite3")
     dataset = pandas.read_sql_query("SELECT * from home_temperature", conn)
     print("DATASET")
@@ -86,21 +94,24 @@ def get_separate_runs():
 def calculate_running_stats():
     runs = get_separate_runs()
     std_devs = []
+    avgs = []
     for run in runs:
         n = 1
         std_dev = np.std(run)
+        avg = np.average(run)
         std_devs.append(std_dev)
-    return std_devs
+        avgs.append(avg)
+    return std_devs, avgs
 
 def generate_stddev_graph(request):
-    std_devs = calculate_running_stats()
+    std_devs, avgs = calculate_running_stats()
     y = []
     n = 1
     for std_dev in std_devs:
         y.append(n)
         n += 1
 
-    data = [['Bread Box Temperature Control', 'stddev'], [y, std_devs, 'Run no.','Std dev', "Data"]]
+    data = [['Bread Box Temperature Control', 'stddev'], [y, std_devs, 'Run no.','Std dev', "Std dev"], [y, avgs, 'Run no.','Average', "Average"]]
     generate_graph_image(data)
 
 def index(request):
