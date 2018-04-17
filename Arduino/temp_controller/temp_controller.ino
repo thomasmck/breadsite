@@ -1,3 +1,5 @@
+//Setup code from https://create.arduino.cc/projecthub/TheGadgetBoy/ds18b20-digital-temperature-sensor-and-arduino-9cc806
+
 #include <OneWire.h> 
 #include <DallasTemperature.h>
 

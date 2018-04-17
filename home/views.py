@@ -8,6 +8,7 @@ from matplotlib import pylab
 from pylab import *
 import PIL, PIL.Image, io
 import numpy as np
+import pandas
 import datetime
 
 def generate_graph_image(data):
@@ -41,7 +42,7 @@ def generate_temp_graph(request):
     x = []
     s = []
     target = []
-    target_temp = 20.0
+    target_temp = 24.0
     # Display all the temperature data from the last day with data
     temp_latest = Temperature.objects.order_by('-rec_date')[0]
     temps = Temperature.objects.filter(rec_date__year=temp_latest.rec_date.year,
@@ -61,6 +62,12 @@ def calculate_total_stats():
     temps = Temperature.objects.values_list('temp', flat=True)
     std_dev = np.std(temps)
     mean = np.mean(temps)
+    columns = ["rec_date", "temp"]
+    import sqlite3
+    conn = sqlite3.connect("db.sqlite3")
+    dataset = pandas.read_sql_query("SELECT * from home_temperature", conn)
+    print("DATASET")
+    print(dataset.describe())
     return np.around([std_dev, mean], decimals=1)
 
 def get_separate_runs():
