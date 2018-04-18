@@ -13,7 +13,7 @@ import datetime
 import sqlite3
 import matplotlib.pyplot as plt
 
-def generate_graph_image(data):
+def generate_graph_image(data, multi_y=False):
     # Line format [["title", "file_name"], [x, y, "x_label", "y_label", "line_label"], etc]
     # Construct the graph
 
@@ -25,8 +25,11 @@ def generate_graph_image(data):
     colour_options = ['C0', 'C1', 'C2', 'C3', 'C4']
     if len(data) > 2:
         for i in range(2, len(data)):
-            ax = ax1.twinx()
-            plot_axis[str(i)] = ax
+            if not multi_y:
+                plot_axis[str(i)] = ax1
+            else:
+                ax = ax1.twinx()
+                plot_axis[str(i)] = ax
     for i in range(1, len(data)):
         ax = plot_axis[str(i)]
         line, = ax.plot(data[i][0], data[i][1], colour_options[i])
@@ -89,18 +92,16 @@ def get_separate_runs():
             run = []
         run.append(temp.temp)
         time_range = temp.rec_date - datetime.timedelta(seconds=10)
+    print(np.std(temp_runs[0]))
     return temp_runs
 
 def calculate_running_stats():
     runs = get_separate_runs()
     std_devs = []
     avgs = []
-    for run in runs:
-        n = 1
-        std_dev = np.std(run)
-        avg = np.average(run)
-        std_devs.append(std_dev)
-        avgs.append(avg)
+    for run in runs[::-1]:
+        std_devs.append(np.std(run))
+        avgs.append(np.average(run))
     return std_devs, avgs
 
 def generate_stddev_graph(request):
@@ -112,7 +113,7 @@ def generate_stddev_graph(request):
         n += 1
 
     data = [['Bread Box Temperature Control', 'stddev'], [y, std_devs, 'Run no.','Std dev', "Std dev"], [y, avgs, 'Run no.','Average', "Average"]]
-    generate_graph_image(data)
+    generate_graph_image(data, multi_y=True)
 
 def index(request):
     latest_blogs_list = BlogPost.objects.order_by('pub_date')[:5]
@@ -120,8 +121,6 @@ def index(request):
     template = loader.get_template('home/index.html')
     context = {
         'latest_blogs_list': latest_blogs_list,
-        'stddev': stats[0],
-        'mean': stats[1],
     }
     generate_temp_graph(request)
     generate_stddev_graph(request)
