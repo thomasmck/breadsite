@@ -1,29 +1,14 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Breadsite</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{% static 'css/author.css' %}">
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        <div class="page-header">
-            <h1><a href="/home/">Breadsite</a></h1>
-        </div>
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="post">
-                        {% if author %}
-                            <h1>{{ author.name }}</h1>
-                            <p>{{ author.bio}}</p>
-                        {% endif %}
-                    </div>
-                </div>
+{% extends 'breadsite/base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="post">
+                {% if author %}
+                    <h1>{{ author.name }}</h1>
+                    <p>{{ author.bio}}</p>
+                {% endif %}
             </div>
         </div>
-    </body>
-</html>
+    </div>
+{% endblock %}

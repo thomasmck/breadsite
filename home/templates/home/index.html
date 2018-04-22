@@ -1,50 +1,34 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Breadsite</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{% static 'css/home.css' %}">
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        <div class="page-header">
-            <h1><a href="/home/">Breadsite</a></h1>
-        </div>
-        <div class="content container">
-            {% load static %}
-            <h1>Latest Run:</h1>
-            <img src="{% static "home/graph.png" %}" alt="My image"/>
-            <h1>Run History:</h1>
-            <img src="{% static "home/stddev.png" %}" alt="My image"/>
-            <div class="row">
-                <div class="col-md-8">
-                    <div>
-                        <p>{{ runs }}</p>
-                    </div>
-                    <div class="post">
-                        <h1>Recent blogs:</h1>
-                        {% if latest_blogs_list %}
-                            <table style="width:100%;">
-                            {% for blog in latest_blogs_list %}
-                                <tr class="lb">
-                                    <td><h4><a href="/blogs/{{ blog.id }}/">{{ blog.title }}</a></h4></td>
-                                    <td><p><a href="/author/{{ blog.author_id }}/">{{ blog.author }}</a></p></td>
-                                </tr>
-                                <tr class="bb">
-                                    <td><p>{{ blog.content }}</p></td>
-                                    <td><p></p></td>
-                                </tr>
-                            {% endfor %}
-                            </table>
-                        {% else %}
-                            <p>No blogs are available.</p>
-                        {% endif %}
-                    </div>
-                </div>
+{% extends 'breadsite/base.html' %}
+{% block content %}
+    {% load static %}
+    <h1>Latest Run:</h1>
+    <img src="{% static "home/graph.png" %}" alt="My image"/>
+    <h1>Run History:</h1>
+    <img src="{% static "home/stddev.png" %}" alt="My image"/>
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+                <p>{{ runs }}</p>
+            </div>
+            <div class="post">
+                <h1>Recent blogs:</h1>
+                {% if latest_blogs_list %}
+                    <table style="width:100%;">
+                    {% for blog in latest_blogs_list %}
+                        <tr class="lb">
+                            <td><h4><a href="/blogs/{{ blog.id }}/">{{ blog.title }}</a></h4></td>
+                            <td><p><a href="/author/{{ blog.author_id }}/">{{ blog.author }}</a></p></td>
+                        </tr>
+                        <tr class="bb">
+                            <td><p>{{ blog.content }}</p></td>
+                            <td><p></p></td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% else %}
+                    <p>No blogs are available.</p>
+                {% endif %}
             </div>
         </div>
-    </body>
-</html>
+    </div>
+{% endblock %}
