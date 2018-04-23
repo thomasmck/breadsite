@@ -5,8 +5,10 @@ from home.models import BlogPost
 
 
 def index(request):
-    latest_blog = BlogPost.objects.order_by('pub_date')[0]
-    return HttpResponse("Hello, world. The latest blog is %s." %latest_blog)
+    template = loader.get_template('blogs/index.html')
+    context = {
+    }
+    return HttpResponse(template.render(context, request))
 
 def detail(request, blogpost_id):
     blog = get_object_or_404(BlogPost, id=blogpost_id)

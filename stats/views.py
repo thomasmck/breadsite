@@ -5,4 +5,7 @@ from home.models import BlogPost
 
 
 def index(request):
-    return HttpResponse("Hello, this is a placeholder for the stats page")
+    template = loader.get_template('stats/index.html')
+    context = {
+    }
+    return HttpResponse(template.render(context, request))

@@ -8,3 +8,9 @@ def detail(request, author_id):
     author = get_object_or_404(Author, id=author_id)
     context = {'author': author}
     return render(request, 'author/detail.html', context)
+
+def index(request):
+    template = loader.get_template('author/index.html')
+    context = {
+    }
+    return HttpResponse(template.render(context, request))
