@@ -6,6 +6,12 @@
             <div class="post">
                 <h1>Authors:</h1>
                     <table style="width:100%;">
+                        {% for author in author_list %}
+                            <tr class="lb">
+                                <td><h4><a href="/author/{{ author.id }}/">{{ author.name }}</a></h4></td>
+                                <td><p>{{ author.bio }}</p></td>
+                            </tr>
+                        {% endfor %}
                     </table>
             </div>
         </div>

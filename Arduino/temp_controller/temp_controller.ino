@@ -24,7 +24,7 @@ void loop() {
   Serial.print(temperature);
   Serial.print("\n");
   // Aiming for 24 degrees C based on https://www.weekendbakery.com/posts/a-few-tips-on-dough-temperature/
-  if (temperature > 24) {
+  if (temperature > 22) {
     digitalWrite(pinOut, HIGH);
   }
   else digitalWrite(pinOut, LOW);

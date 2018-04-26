@@ -11,6 +11,8 @@ def detail(request, author_id):
 
 def index(request):
     template = loader.get_template('author/index.html')
+    author_list = Author.objects.all()
     context = {
+        'author_list': author_list,
     }
     return HttpResponse(template.render(context, request))
