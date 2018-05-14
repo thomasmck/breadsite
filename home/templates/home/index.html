@@ -17,7 +17,7 @@
                     {% for blog in latest_blogs_list %}
                         <tr class="lb">
                             <td><h4><a href="/blogs/{{ blog.id }}/">{{ blog.title }}</a></h4></td>
-                            <td><p><a href="/author/{{ blog.author_id }}/">{{ blog.author }}</a></p></td>
+                            <td><p><a href="/author/{{ blog.author_id }}/">{{ blog.author.name }}</a></p></td>
                         </tr>
                         <tr class="bb">
                             <td><p>{{ blog.content }}</p></td>
