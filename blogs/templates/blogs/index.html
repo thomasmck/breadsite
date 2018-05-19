@@ -1,11 +1,9 @@
 {% extends 'breadsite/base.html' %}
 {% block content %}
     {% load static %}
-    <h1>Blogs:</h1>
     <div class="row">
         <div class="col-md-8">
             <div class="post">
-                <h1>Recent blogs:</h1>
                 {% if latest_blogs_list %}
                     <table style="width:100%;">
                     {% for blog in latest_blogs_list %}

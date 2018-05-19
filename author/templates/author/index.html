@@ -1,6 +1,7 @@
 {% extends 'breadsite/base.html' %}
 {% block content %}
     {% load static %}
+    {% static "" as baseUrl %}
     <div class="row">
         <div class="col-md-8">
             <div class="post">
@@ -8,7 +9,15 @@
                     <table style="width:100%;">
                         {% for author in author_list %}
                             <tr class="lb">
-                                <td><h4><a href="/author/{{ author.id }}/">{{ author.name }}</a></h4></td>
+                                <td><h4>{{ author.name }}</h4></td>
+                            </tr>
+                            <tr>
+                                <img src="{{ baseUrl }}{{author.image}}" height="400" width="450"/>
+                            </tr>
+                            <tr class="lb">
+                                <td><p>{{ author.job_title }}</p></td>
+                            </tr>
+                            <tr>
                                 <td><p>{{ author.bio }}</p></td>
                             </tr>
                         {% endfor %}

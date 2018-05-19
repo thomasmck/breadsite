@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class Author(models.Model):
     name = models.CharField(max_length=200)
+    job_title = models.CharField(max_length=100)
     bio = models.CharField(max_length=1000)
     image = models.FileField(upload_to='author/image')
 

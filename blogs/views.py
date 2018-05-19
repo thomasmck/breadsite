@@ -5,8 +5,9 @@ from home.models import BlogPost
 
 
 def index(request):
+    latest_blogs_list = BlogPost.objects.order_by('pub_date')[:5]
     template = loader.get_template('blogs/index.html')
-    context = {
+    context = {'latest_blogs_list': latest_blogs_list,
     }
     return HttpResponse(template.render(context, request))
 
