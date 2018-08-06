@@ -14,6 +14,7 @@ import datetime
 import sqlite3
 import matplotlib.pyplot as plt
 import os
+from utils import util
 
 def generate_graph_image(data, multi_y=False):
     # Line format [["title", "file_name"], [x, y, "x_label", "y_label", "line_label"], etc]
@@ -74,7 +75,9 @@ def generate_temp_graph(request):
         s.append(temp.temp)
         target.append(target_temp)
 
-    data = [['Bread Box Temperature Control', 'graph'],[x, s, 'Time', 'Temperature (°C)', "Data"],[x, target, 'Time', 'Temperature (°C)', "Target"]]
+    data = [['Bread Box Temperature Control', 'graph'],
+            [x, s, 'Time', 'Temperature (°C)', "Data"],
+            [x, target, 'Time','Temperature (°C)', "Target"]]
     generate_graph_image(data)
 
 def calculate_total_stats():
@@ -84,29 +87,10 @@ def calculate_total_stats():
     std_dev = np.std(temps)
     mean = np.mean(temps)
 
-    # Test of who to read data into pandas - will expand in the future
-    #conn = sqlite3.connect("db.sqlite3")
-    #dataset = pandas.read_sql_query("SELECT * from home_temperature", conn)
     return np.around([std_dev, mean], decimals=1)
 
-def get_separate_runs():
-    # Split out data from db into the seperate runs
-    temps = Temperature.objects.order_by('-rec_date')
-    temp_runs = []
-    run = []
-    # If two readings are less then 10 seconds apart assume they are from the same run
-    # Note that Arduino is reading/writing the temp every ~1 second
-    time_range = temps[0].rec_date - datetime.timedelta(seconds=10)
-    for temp in temps:
-        if temp.rec_date < time_range:
-            temp_runs.append(run)
-            run = []
-        run.append(temp.temp)
-        time_range = temp.rec_date - datetime.timedelta(seconds=10)
-    return temp_runs
-
 def calculate_running_stats():
-    runs = get_separate_runs()
+    runs = util.get_separate_runs()
     std_devs = []
     avgs = []
     # Reverse order from oldest to newest
@@ -125,7 +109,9 @@ def generate_stddev_graph(request):
         x.append(n)
         n += 1
 
-    data = [['Bread Box Temperature Control', 'stddev'], [x, std_devs, 'Run no.','Std dev', "Std dev"], [x, avgs, 'Run no.','Average', "Average"]]
+    data = [['Bread Box Temperature Control', 'stddev'],
+            [x, std_devs, 'Run no.','Std dev', "Std dev"],
+            [x, avgs, 'Run no.','Average', "Average"]]
     generate_graph_image(data, multi_y=True)
 
 def index(request):
@@ -139,6 +125,7 @@ def index(request):
     # If not then regenerate
     mod_time = datetime.datetime.fromtimestamp(os.path.getmtime("C:/Users/Tom/Documents/git_repos/breadsite/home/static/home"))
     temp_latest = Temperature.objects.order_by('-rec_date')[0]
+    # Remove timezone data so it is in the same format as mod_time
     latest_temp_date = datetime.datetime.replace(temp_latest.rec_date, tzinfo=None)
     if (latest_temp_date - mod_time) > datetime.timedelta(0):
         generate_temp_graph(request)

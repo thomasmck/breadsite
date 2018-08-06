@@ -14,6 +14,7 @@ class BlogPost(models.Model):
 
 
 class Temperature(models.Model):
+    # Also need to relate the temperature controller settings to the results we are achieving
     rec_date = models.DateTimeField('datetime recorded')
     temp = models.FloatField()
 
