@@ -1,12 +1,16 @@
 {% extends 'breadsite/base.html' %}
 {% block content %}
-    {% load static %}
-    <h1>Stat page coming soon...</h1>
-    <table style="width:100%;">
-        {% for key, value in total_stats %}
-            <tr>
-                <td></td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Stat page coming soon...</h1>
+            <table>
+                {% for key, value in total_stats.items %}
+                    <tr class="lb">
+                        <td><p>{{ key }}</p></td>
+                        <td>HERE</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endblock %}

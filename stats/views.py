@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.http import HttpResponse
-from django.template import loader
+from django.template import loader, Context
 from home.models import BlogPost, Temperature
 import matplotlib
 matplotlib.use('Agg')
@@ -30,7 +30,7 @@ def generate_total_stats():
     count = len(all_data)
     max = np.max(all_data)
     min = np.min(all_data)
-    return collections.{"std_dev": std_dev, "mean": mean, "count": count, "max": max, "min": min}
+    return {"std_dev": std_dev, "mean": mean, "count": count, "max": max, "min": min}
 
 def generate_seperate_run_stats():
     # Generate stats based on comparing individual runs
@@ -38,8 +38,9 @@ def generate_seperate_run_stats():
 
 def index(request):
     template = loader.get_template('stats/index.html')
-    generate_stats()
+    total_stats = generate_total_stats()
+    print("TOTAL STATS: %s" % total_stats)
     context = {
-        'total_stats': generate_total_stats(),
+        'total_stats': Context(total_stats),
     }
     return HttpResponse(template.render(context, request))
