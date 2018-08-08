@@ -15,6 +15,7 @@ import sqlite3
 import matplotlib.pyplot as plt
 import os
 import collections
+from utils import util
 
 def generate_stats():
     conn = sqlite3.connect("db.sqlite3")
@@ -22,25 +23,43 @@ def generate_stats():
     print(dataset)
     print(dataset.first_valid_index)
 
+def number_of_datapoints():
+    return len(Temperature.objects.values_list('temp', flat=True))
+
+def number_of_runs():
+    return len(util.get_separate_runs())
+
 def generate_total_stats():
+    return generate_stats(Temperature.objects.values_list('temp', flat=True))
+
+def generate_stats(data):
     # Generate stats based on the total data set
-    all_data = Temperature.objects.values_list('temp', flat=True)
-    std_dev = np.std(all_data)
-    mean = np.mean(all_data)
-    count = len(all_data)
-    max = np.max(all_data)
-    min = np.min(all_data)
-    return {"std_dev": std_dev, "mean": mean, "count": count, "max": max, "min": min}
+    num_runs = number_of_runs()
+    num_data = number_of_datapoints()
+    std_dev = np.std(data)
+    mean = np.mean(data)
+    count = len(data)
+    max = np.max(data)
+    min = np.min(data)
+    return {"number of datapoints": num_data, "number of runs": num_runs,"std_dev": std_dev, "mean": mean,
+            "count": count, "max": max, "min": min}
 
 def generate_seperate_run_stats():
     # Generate stats based on comparing individual runs
-    pass
+    # TODO: gathering this data is slow so should consider writing to db
+    stats_list = []
+    runs = util.get_separate_runs()[0:1]
+    for run in runs:
+        stats = generate_stats(run)
+        stats_list.append(stats)
+    return stats_list
 
 def index(request):
     template = loader.get_template('stats/index.html')
     total_stats = generate_total_stats()
-    print("TOTAL STATS: %s" % total_stats)
+    run_stats = generate_seperate_run_stats()
     context = {
-        'total_stats': Context(total_stats),
+        'total_stats': total_stats,
+        'run_stats': run_stats,
     }
     return HttpResponse(template.render(context, request))

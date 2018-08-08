@@ -2,12 +2,23 @@
 {% block content %}
     <div class="row">
         <div class="col-md-8">
-            <h1>Stat page coming soon...</h1>
+            <h1>Total Stats</h1>
             <table>
                 {% for key, value in total_stats.items %}
                     <tr class="lb">
                         <td><p>{{ key }}</p></td>
-                        <td>HERE</td>
+                        <td><p>{{ value }}</p></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <h1>Run Stats</h1>
+            <table>
+                {% for dict in run_stats %}
+                    <tr class="lb">
+                        {% for key, value in dict.items %}
+                            <td><p>{{ key }}</p></td>
+                            <td><p>{{ value }}</p></td>
+                        {% endfor %}
                     </tr>
                 {% endfor %}
             </table>
