@@ -13,10 +13,16 @@
             </table>
             <h1>Run Stats</h1>
             <table>
-                {% for dict in run_stats %}
+                {% for dict in run_stats|slice:":1" %}
                     <tr class="lb">
                         {% for key, value in dict.items %}
                             <td><p>{{ key }}</p></td>
+                        {% endfor %}
+                {% endfor %}
+                {% for dict in run_stats %}
+                    </tr>
+                     <tr class="lb">
+                        {% for key, value in dict.items %}
                             <td><p>{{ value }}</p></td>
                         {% endfor %}
                     </tr>

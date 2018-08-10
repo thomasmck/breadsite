@@ -1,17 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import BlogPost, Temperature
+from .models import Temperature
 from author.models import Author
+from blogs.models import BlogPost
 import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pylab
 from pylab import *
 import PIL, PIL.Image, io
 import numpy as np
-import pandas
 import datetime
-import sqlite3
 import matplotlib.pyplot as plt
 import os
 from utils import util
@@ -123,7 +122,7 @@ def index(request):
     }
     # Find if we have regenerated the graph since the latest temp data was added to the db
     # If not then regenerate
-    mod_time = datetime.datetime.fromtimestamp(os.path.getmtime("C:/Users/Tom/Documents/git_repos/breadsite/home/static/home"))
+    mod_time = datetime.datetime.fromtimestamp(os.path.getmtime(os.getcwd() + "/home/static/home"))
     temp_latest = Temperature.objects.order_by('-rec_date')[0]
     # Remove timezone data so it is in the same format as mod_time
     latest_temp_date = datetime.datetime.replace(temp_latest.rec_date, tzinfo=None)

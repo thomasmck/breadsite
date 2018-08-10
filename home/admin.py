@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Author, BlogPost, Temperature
+from .models import Temperature
+from blogs.models import BlogPost
+from author.models import Author
 
 # Register your models here.
 admin.site.register(Author)
