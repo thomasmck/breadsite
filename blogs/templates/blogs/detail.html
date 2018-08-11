@@ -8,7 +8,7 @@
                 {% if blog %}
                     <h1>{{ blog.title }}</h1>
                     <h4><a href="/author/{{ blog.author_id }}/">{{ blog.author }}</a></h4>
-                    <img src="{{ baseUrl }}{{author.image}}" height="400" width="450"/>
+                    <img src="{{ baseUrl }}{{blog.image}}" height="400" width="500"/>
                     <p>{{ blog.content }}</p>
                 {% else %}
                     <p>No blogs are available.</p>
