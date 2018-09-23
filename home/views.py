@@ -14,6 +14,12 @@ import datetime
 import matplotlib.pyplot as plt
 import os
 from utils import util
+from .serializers import TemperatureSerializer
+from rest_framework import generics
+
+class TemperatureListCreate(generics.ListCreateAPIView):
+    queryset = Temperature.objects.all()
+    serializer_class = TemperatureSerializer
 
 def generate_graph_image(data, multi_y=False):
     # Line format [["title", "file_name"], [x, y, "x_label", "y_label", "line_label"], etc]
