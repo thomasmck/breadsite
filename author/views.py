@@ -5,8 +5,13 @@ from author.models import Author
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
-#from django.core.urlresolvers import reverse
 from author.forms import DocumentForm
+from .serializers import AuthorSerializer
+from rest_framework import generics
+
+class AuthorListCreate(generics.ListCreateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
 
 def list(request):
     # Handle file upload
