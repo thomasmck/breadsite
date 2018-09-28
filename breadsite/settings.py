@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'author.apps.AuthorConfig',
     'stats.apps.StatsConfig',
     'rest_framework',
+    'frontend',
 ]
 
 MIDDLEWARE = [
