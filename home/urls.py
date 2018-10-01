@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('api/temp/', views.TemperatureListCreate.as_view())
+    path('frontend/api/temp/', views.TemperatureListCreate.as_view())
 ]
