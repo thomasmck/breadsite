@@ -12,7 +12,7 @@ function Square(props) {
 function Graph(props) {
     const temp_data = props.data;
     return (
-        <ResponsiveContainer width='100%' height={300}>
+        <ResponsiveContainer width={500} height={300}>
             <LineChart cx="50%" cy="50%" outerRadius="80%" data={temp_data}>
                 <XAxis dataKey="id"/>
                 <YAxis />
@@ -24,7 +24,7 @@ function Graph(props) {
 
 const App = () => (
   <div>
-    <p>THIS IS A TEST.............................................</p>
+    <p>THIS IS A TEST</p>
     <DataProvider endpoint="api/temp/" render={data => <Graph data={data}/>}/>
   </div>
 

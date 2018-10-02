@@ -18,7 +18,7 @@ from .serializers import TemperatureSerializer
 from rest_framework import generics
 
 class TemperatureListCreate(generics.ListCreateAPIView):
-    queryset = Temperature.objects.all()[:10]
+    queryset = Temperature.objects.all()[:100]
     serializer_class = TemperatureSerializer
 
 def generate_graph_image(data, multi_y=False):
