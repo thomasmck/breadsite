@@ -3,16 +3,10 @@ import ReactDOM from "react-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import DataProvider from "./DataProvider";
 
-function Square(props) {
-  return (
-    <button className="square">{props.value}</button>
-  );
-}
-
 function Graph(props) {
     const temp_data = props.data;
     return (
-        <ResponsiveContainer width={500} height={300}>
+        <ResponsiveContainer width='100%' height={300}>
             <LineChart cx="50%" cy="50%" outerRadius="80%" data={temp_data}>
                 <XAxis dataKey="id"/>
                 <YAxis />
@@ -22,10 +16,18 @@ function Graph(props) {
     );
 }
 
+function Image(props) {
+    const image = props.data.image;
+    return (
+        <img src={image} height="400" width="500"/>
+    );
+}
+
 const App = () => (
   <div>
-    <p>THIS IS A TEST</p>
-    <DataProvider endpoint="api/temp/" render={data => <Graph data={data}/>}/>
+      <p>Welcome to the Breadsite! A website dedicated to the making of bread and its interaction with technology</p>
+      <DataProvider endpoint="api/blog/" render={data => <Image data={data}/>}/>
+      <DataProvider endpoint="api/temp/" render={data => <Graph data={data}/>}/>
   </div>
 
 );

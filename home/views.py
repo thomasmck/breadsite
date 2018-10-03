@@ -14,12 +14,17 @@ import datetime
 import matplotlib.pyplot as plt
 import os
 from utils import util
-from .serializers import TemperatureSerializer
+from .serializers import TemperatureSerializer,BlogSerializer
 from rest_framework import generics
 
 class TemperatureListCreate(generics.ListCreateAPIView):
     queryset = Temperature.objects.all()[:100]
     serializer_class = TemperatureSerializer
+
+class BlogListCreate(generics.ListCreateAPIView):
+    # Only return the latest blog
+    queryset = BlogPost.objects.all()[0:1]
+    serializer_class = BlogSerializer
 
 def generate_graph_image(data, multi_y=False):
     # Line format [["title", "file_name"], [x, y, "x_label", "y_label", "line_label"], etc]

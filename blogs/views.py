@@ -6,7 +6,8 @@ from rest_framework import generics
 from .serializers import BlogSerializer
 
 class BlogListCreate(generics.ListCreateAPIView):
-    queryset = BlogPost.objects.all()
+    # Only return the latest blog
+    queryset = BlogPost.objects.all()[0:1]
     serializer_class = BlogSerializer
 
 def index(request):
