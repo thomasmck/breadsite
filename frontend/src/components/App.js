@@ -17,9 +17,9 @@ function Graph(props) {
 }
 
 function Image(props) {
-    const image = props.data.image;
+    var blog = props.data[0];
     return (
-        <img src={image} height="400" width="500"/>
+        <img src={blog.image} height="400" width="500"/>
     );
 }
 
