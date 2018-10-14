@@ -23,7 +23,7 @@ class TemperatureListCreate(generics.ListCreateAPIView):
 
 class BlogListCreate(generics.ListCreateAPIView):
     # Only return the latest blog
-    queryset = BlogPost.objects.all()[0:1]
+    queryset = BlogPost.objects.all().order_by('-id')[0:1]
     serializer_class = BlogSerializer
 
 def generate_graph_image(data, multi_y=False):

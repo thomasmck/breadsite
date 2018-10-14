@@ -9,6 +9,7 @@ class BlogPost(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='author')
     content = models.CharField(max_length=5000)
     image = models.FileField(upload_to='blogs/image')
+    crumb_image = models.FileField(upload_to='blogs/image')
 
     def __str__(self):
         return self.title

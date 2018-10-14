@@ -7,7 +7,7 @@ from .serializers import BlogSerializer
 
 class BlogListCreate(generics.ListCreateAPIView):
     # Only return the latest blog
-    queryset = BlogPost.objects.all()[0:1]
+    queryset = BlogPost.objects.all().order_by('-id')
     serializer_class = BlogSerializer
 
 def index(request):
