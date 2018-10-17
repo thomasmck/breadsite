@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { LineChart, Line, Legend, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import DataProvider from "./DataProvider";
+import { Sticky, StickyContainer } from "react-sticky";
 
 function Graph(props) {
     const temp_data = props.data;
@@ -22,7 +23,9 @@ function Image(props) {
     var image_id = blog.substring(blog.indexOf('.jpg') - 1);
     var image_location = "/static/blogs/" + image_id;
     return (
-        <img src={image_location} height="400" width="500"/>
+        <StickyContainer>
+            <Sticky>{() => <img src={image_location} height="400" width="500"/>}</Sticky>
+        </StickyContainer>
     );
 }
 
