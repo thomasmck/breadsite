@@ -24,7 +24,32 @@ function Image(props) {
     var image_location = "/static/blogs/" + image_id;
     return (
         <StickyContainer>
-            <Sticky>{() => <img src={image_location} height="400" width="500"/>}</Sticky>
+            <Sticky>
+                {({ style }) => <img style={style} src={image_location} height="400" width="500"/>}
+            </Sticky>
+            <h2>a
+            b
+            c
+            d
+            e
+            f
+            g
+            h
+            i
+            k
+            l
+            m
+            n
+            o
+            p
+            q
+            r
+            s
+            t
+            v
+            x
+            y
+            z</h2>
         </StickyContainer>
     );
 }
