@@ -23,34 +23,7 @@ function Image(props) {
     var image_id = blog.substring(blog.indexOf('.jpg') - 1);
     var image_location = "/static/blogs/" + image_id;
     return (
-        <StickyContainer>
-            <Sticky>
-                {({ style }) => <img style={style} src={image_location} height="400" width="500"/>}
-            </Sticky>
-            <h2>a
-            b
-            c
-            d
-            e
-            f
-            g
-            h
-            i
-            k
-            l
-            m
-            n
-            o
-            p
-            q
-            r
-            s
-            t
-            v
-            x
-            y
-            z</h2>
-        </StickyContainer>
+        <img src={image_location} height="auto" width="60%"/>
     );
 }
 
@@ -65,15 +38,18 @@ function CrumbImage(props) {
 
 const App = () => (
   <div>
-      <p>Welcome to the Breadsite! A website dedicated to the making of bread and its interaction with technology</p>
-      <p>The main feature is of course the bread</p>
-      <DataProvider endpoint="api/blog/" render={data => <Image data={data}/>}/>
-      <p>(Obligatory crumb shot)</p>
-      <DataProvider endpoint="api/blog/" render={data => <CrumbImage data={data}/>}/>
-      <p>but is is also a place to track temperature control stats..</p>
-      <DataProvider endpoint="api/temp/" render={data => <Graph data={data}/>}/>
-      <p>Data provided courtesy of my ghetto proving box</p>
-      <img></img>
+      <StickyContainer>
+          <Sticky style={"background-color:white;"}>
+          {({ style }) => <p style={style}>Welcome to the Breadsite! A website dedicated to the making of bread and its interaction with technology</p>}
+          </Sticky>
+          <p>The main feature is of course the bread</p>
+          <DataProvider endpoint="api/blog/" render={data => <Image data={data}/>}/>
+          <p>(Obligatory crumb shot)</p>
+          <DataProvider endpoint="api/blog/" render={data => <CrumbImage data={data}/>}/>
+          <p>but is is also a place to track temperature control stats..</p>
+          <DataProvider endpoint="api/temp/" render={data => <Graph data={data}/>}/>
+          <p>Data provided courtesy of my ghetto proving box</p>
+      </StickyContainer>
   </div>
 
 );
