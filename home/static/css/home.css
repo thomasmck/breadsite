@@ -56,6 +56,11 @@ h1, h2, h3, h4 {
 
 body {
     padding-left: 15px;
+    font-family: "Lucinda Grande", "Lucinda Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+}
+
+p {
+    background-color: white;
 }
 
 .page-header th, td {

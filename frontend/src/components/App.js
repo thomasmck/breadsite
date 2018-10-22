@@ -7,7 +7,7 @@ import { Sticky, StickyContainer } from "react-sticky";
 function Graph(props) {
     const temp_data = props.data;
     return (
-        <ResponsiveContainer width='50%' height={300}>
+        <ResponsiveContainer width='60%' height={300}>
             <LineChart cx="50%" cy="50%" outerRadius="80%" data={temp_data}>
                 <XAxis dataKey="id" tickLine={false} tick={false}/>
                 <YAxis/>
@@ -32,19 +32,24 @@ function CrumbImage(props) {
     var image_id = blog.substring(blog.indexOf('.jpg') - 7);
     var image_location = "/static/blogs/" + image_id;
     return (
-        <img src={image_location} height="400" width="500"/>
+        <img src={image_location} height="auto" width="60%"/>
     );
 }
 
 const App = () => (
   <div>
       <StickyContainer>
+          <h2>Welcome to the 🍞site!</h2>
+          <h4>A website dedicated to the making of bread and its interaction with technology</h4>
           <Sticky style={"background-color:white;"}>
-          {({ style }) => <p style={style}>Welcome to the Breadsite! A website dedicated to the making of bread and its interaction with technology</p>}
+          {({ style }) => <p style={style}>The main feature is of course the bread</p>}
           </Sticky>
-          <p>The main feature is of course the bread</p>
           <DataProvider endpoint="api/blog/" render={data => <Image data={data}/>}/>
-          <p>(Obligatory crumb shot)</p>
+      </StickyContainer>
+      <StickyContainer>
+          <Sticky style={"background-color:white;"}>
+              {({ style }) => <p style={style}>With obligatory crumb shots</p>}
+          </Sticky>
           <DataProvider endpoint="api/blog/" render={data => <CrumbImage data={data}/>}/>
           <p>but is is also a place to track temperature control stats..</p>
           <DataProvider endpoint="api/temp/" render={data => <Graph data={data}/>}/>
