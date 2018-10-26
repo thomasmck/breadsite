@@ -41,19 +41,24 @@ const App = () => (
       <StickyContainer>
           <h2>Welcome to the 🍞site!</h2>
           <h4>A website dedicated to the making of bread and its interaction with technology</h4>
-          <Sticky style={"background-color:white;"}>
-          {({ style }) => <p style={style}>The main feature is of course the bread</p>}
+          <Sticky>
+          {({ style }) => <p style={style}>The main feature is of course the bread...</p>}
           </Sticky>
           <DataProvider endpoint="api/blog/" render={data => <Image data={data}/>}/>
       </StickyContainer>
       <StickyContainer>
-          <Sticky style={"background-color:white;"}>
+          <Sticky>
               {({ style }) => <p style={style}>With obligatory crumb shots</p>}
           </Sticky>
           <DataProvider endpoint="api/blog/" render={data => <CrumbImage data={data}/>}/>
-          <p>but is is also a place to track temperature control stats..</p>
-          <DataProvider endpoint="api/temp/" render={data => <Graph data={data}/>}/>
-          <p>Data provided courtesy of my ghetto proving box</p>
+      </StickyContainer>
+      <p>And temperature control stats</p>
+      <DataProvider endpoint="api/temp/" render={data => <Graph data={data}/>}/>
+      <StickyContainer>
+          <Sticky>
+              {({ style }) => <p style={style}>Data provided courtesy of my ghetto proving box</p>}
+          </Sticky>
+          <img src="/static/frontend/box.jpg" height="auto" width="60%"/>
       </StickyContainer>
   </div>
 
