@@ -6,11 +6,22 @@ import { Sticky, StickyContainer } from "react-sticky";
 
 function Graph(props) {
     const temp_data = props.data;
+    const AxisLabel = ({ axisType, x, y, width, height, stroke, children }) => {
+        const isVert = axisType === 'yAxis';
+        const cx = isVert ? x : x + (width / 2);
+        const cy = isVert ? (height / 2) + y : y + height + 10;
+        const rot = isVert ? `270 ${cx} ${cy}` : 0;
+        return (
+            <text x={cx} y={cy} transform={`rotate(${rot})`} textAnchor="middle" stroke={stroke}>
+            {children}
+            </text>
+        );
+    };
     return (
         <ResponsiveContainer width='60%' height={300}>
             <LineChart cx="50%" cy="50%" outerRadius="80%" data={temp_data}>
-                <XAxis dataKey="id" tickLine={false} tick={false}/>
-                <YAxis/>
+                <XAxis dataKey="id" tickLine={false} tick={false} label="Time"/>
+                <YAxis label="Temp"/>
                 <Line name="Temperature, °C" connectNulls={true} dataKey="temp" stroke="black"/>
                 <Legend verticalAlign="top" height={36}/>
             </LineChart>
@@ -59,6 +70,7 @@ const App = () => (
               {({ style }) => <p style={style}>Data provided courtesy of my ghetto proving box</p>}
           </Sticky>
           <img src="/static/frontend/box.jpg" height="auto" width="60%"/>
+          <p></p>
       </StickyContainer>
   </div>
 
