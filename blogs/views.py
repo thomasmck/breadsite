@@ -13,6 +13,9 @@ class BlogListCreate(generics.ListCreateAPIView):
 def index(request):
     latest_blogs_list = BlogPost.objects.order_by('pub_date')[:5]
     template = loader.get_template('blogs/index.html')
+    for blog in latest_blogs_list:
+        print(blog.content)
+        blog.content = blog.content[0:120] + "..."
     context = {'latest_blogs_list': latest_blogs_list,
     }
     return HttpResponse(template.render(context, request))

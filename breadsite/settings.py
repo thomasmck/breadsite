@@ -35,6 +35,10 @@ SECRET_KEY = 'd%h=cxkks5mn$cwzvbt47lfvz)p)w+a^49f)gu3tl26s7^snko'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+"""
+if os.environ['DJANGO_DEBUG']:
+    DEBUG = True
+"""
 
 ALLOWED_HOSTS = ['192.168.1.69', 'localhost', '127.0.0.1', '192.168.0.24']
 
