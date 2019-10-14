@@ -53,9 +53,11 @@ def generate_seperate_run_stats():
     # TODO: gathering this data is slow so should consider writing to db
     stats_list = []
     runs = util.get_separate_runs()[0:2]
+    print(runs)
     for run in runs:
-        stats = generate_stats(run)
-        stats_list.append(stats)
+        if run != []:
+            stats = generate_stats(run)
+            stats_list.append(stats)
     return stats_list
 
 def index(request):

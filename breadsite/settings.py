@@ -26,6 +26,19 @@ MEDIA_URL = '/media/'
 
 # Static URL
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+print(BASE_DIR)
+print(MEDIA_ROOT)
+print(STATIC_ROOT)
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend/static/'),
+    os.path.join(BASE_DIR, 'blogs/static/'),
+]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -34,13 +47,16 @@ STATIC_URL = '/static/'
 SECRET_KEY = 'd%h=cxkks5mn$cwzvbt47lfvz)p)w+a^49f)gu3tl26s7^snko'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-"""
-if os.environ['DJANGO_DEBUG']:
-    DEBUG = True
-"""
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.69', 'localhost', '127.0.0.1', '192.168.0.24']
+try:
+    if os.environ['DJANGO_DEBUG']:
+        DEBUG = True
+except:
+    pass
+
+
+ALLOWED_HOSTS = ['192.168.1.69', 'localhost', '127.0.0.1', '192.168.0.24', '86.21.161.23', 'breadsite.co.uk']
 
 # Application definition
 
@@ -133,14 +149,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend/static/'),
-    os.path.join(BASE_DIR, 'blogs/static/'),
-]

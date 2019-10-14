@@ -2,9 +2,9 @@
 {% block content %}
     {% load static %}
     <p>Welcome to the Breadsite. This website is used to track the stats from my bread proofing box and log my bread making journey.</p>
-    <h1>Latest Run:</h1>
+    <h1>Latest Run</h1>
     <img src="{% static "home/graph.png" %}" alt="My image"/>
-    <h1>Run History:</h1>
+    <h1>Run History</h1>
     <img src="{% static "home/stddev.png" %}" alt="My image"/>
     <div class="row">
         <div class="col-md-8">
@@ -12,7 +12,7 @@
                 <p>{{ runs }}</p>
             </div>
             <div class="post">
-                <h1>Recent blogs:</h1>
+                <h1>Recent blogs</h1>
                 {% if latest_blogs_list %}
                     <table style="width:100%;">
                     {% for blog in latest_blogs_list %}

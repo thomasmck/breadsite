@@ -11,10 +11,14 @@ def get_separate_runs():
     # If two readings are less then 10 seconds apart assume they are from the same run
     # Note that Arduino is reading/writing the temp every ~1 second
     time_range = temps[0].rec_date - datetime.timedelta(seconds=10)
+    # TODO fix this
     for temp in temps:
         if temp.rec_date < time_range:
-            temp_runs.append(run)
+            if run != []:
+                temp_runs.append(run)
             run = []
         run.append(temp.temp)
         time_range = temp.rec_date - datetime.timedelta(seconds=10)
+    if len(temp_runs) == 0:
+        temp_runs.append(run)
     return temp_runs
