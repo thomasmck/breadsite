@@ -1,0 +1,138 @@
+.App {
+  font-style: normal;
+}
+
+.Body {
+  border: black;
+  padding-left: 10%;
+}
+
+.Graph {
+  width: 80%;
+}
+
+.App-logo {
+  height: 50px;
+  max-width: 500px;
+  padding-left: 10px;
+}
+
+.Dropdown-logo {
+  height: 30px;
+  width: 30px;
+  max-width: 500px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
+.BlogTable {
+  width: 80%;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+.BlogTitle {
+  padding-left: 10px;
+  font-size: x-large;
+  align-content: center;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.BlogTitle:hover {
+  text-decoration:none;
+  text-shadow: 1px 1px 1px #555;
+}
+
+.BlogTitleRow {
+  text-align: center;  
+}
+
+.BlogImage {
+  border-radius: 1%;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.DropdownDiv {
+  display: inline-block;
+}
+
+.header-div {
+  text-align: left;
+}
+
+.App-header {
+  background-color: white;
+  margin: 0px;
+  width: 100%;
+  padding-left: 0px;
+  height: 50px;
+  display: inline-block;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  position: fixed;
+  z-index: 10;
+  top: 0px;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.App-footer {
+  text-align: center;
+}
+
+.Banner {
+  width: 100%;
+  padding-top: 50px;
+  background-color: cornflowerblue;
+  padding-bottom: 5px;
+}
+
+.Banner-content {
+  padding-left: 10%;
+  padding-bottom: 10px;
+}
+
+.Banner-content-para {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.modal {
+  width: 500px;
+  background: white;
+  border: 1px solid #ccc;
+  transition: 1.1s ease-out;
+  visibility: visible;
+  position: fixed;
+}
+
+.blogIframe {
+  width: 95%;
+  height: 95%;
+  position: absolute;
+}
+
+.About-Body {
+  padding-top: 50px;
+  padding-left: 10%;
+  padding-right: 128px;
+}
+
+.Profile-Picture {
+  width: 400px;
+  height: auto;
+}
+
+.Bio-Text {
+  margin: 7px;
+  word-wrap: normal;
+}
+
+.Bio-Para {
+  vertical-align: top;
+}
