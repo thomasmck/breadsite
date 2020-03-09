@@ -1,5 +1,6 @@
 import React from 'react';
 import tom from './tom.jpg'
+import sourdough from './sourdough.jpg'
 
 function About() {
     return (
@@ -28,10 +29,15 @@ function About() {
                 <table>
                     <tr>
                         <td>
-                        <img src={tom} className="Profile-Picture"/>
+                        <img src={sourdough} className="Sourdough-Picture"/>
                         </td>
                         <td className="Bio-Para">
-                            <p>!Replace this image with sourdough!</p>
+                            <p className="Bio-Text">    This unsightly jar has been the home to a culture of lactobacilli and yeast, otherwise known as sourdough starter, for over 3 years now.
+                                   All you need to do is regularly top it up with fresh flour and water, whilst letting mother nature handle the rest.</p>
+                            <p className="Bio-Text">    Sourdough starter can be used as a replacement for packaged yeast in most recipes including crumpets, american pancakes and doughnuts.
+                                   Sourdough bread has a unique tang/funk, due to the fermentation in the starter, which gives it a unique flavour of its own (unlike your average sandwich loaf)
+                                   As well as the flavour, sourdough breads last longer and has <a link="https://www.theguardian.com/lifeandstyle/2013/jun/22/sourdough-bread-good-for-you">additional health benefits.</a>
+                            </p>
                         </td>
                     </tr>
                 </table>
@@ -41,7 +47,7 @@ function About() {
                 <table>
                     <tr>
                         <td className="Bio-Para">
-                            <p className="Bio-Text">!Replace this image with bread box! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+                            <p className="Bio-Text">!Replace this image with bread box! ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~</p>
                         </td>
                         <td>
                         <img src={tom} className="Profile-Picture"/>

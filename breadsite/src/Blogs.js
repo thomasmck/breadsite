@@ -51,7 +51,7 @@ class BlogModal extends React.Component {
   }
 }
 
-class Blogs extends React.Component {
+export default class Blogs extends React.Component {
 
     constructor(props) {
         super(props);
@@ -93,5 +93,3 @@ class Blogs extends React.Component {
     console.log(this.state.data)
   }
 }
-
-export default Blogs;

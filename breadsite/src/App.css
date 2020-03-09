@@ -126,11 +126,20 @@
 .Profile-Picture {
   width: 400px;
   height: auto;
+  image-orientation: from-image;
+}
+
+.Sourdough-Picture {
+  width: 400px;
+  height: auto;
+  image-orientation: from-image;
+  padding-right: 15px;
 }
 
 .Bio-Text {
   margin: 7px;
   word-wrap: normal;
+  text-align: justify;
 }
 
 .Bio-Para {

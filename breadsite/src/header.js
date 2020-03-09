@@ -74,10 +74,16 @@ class DropDown extends React.Component {
           </div>
           <Modal open={showMenu} onClose={this.onCloseModal} left styles={bg} closeIconSize={0}>
             <h2>Page Navigation Pane</h2>
+            <hr></hr>
             <Link to="/" onClick={this.onCloseModal}>Home</Link>
             <p />
+            <hr></hr>
             <Link to="/about" onClick={this.onCloseModal}>About</Link>
             <p />
+            <hr></hr>
+            <Link to="/blogs" onClick={this.onCloseModal}>Blogs</Link>
+            <p />
+            <hr></hr>
           </Modal>
         </div>
       )

@@ -4,6 +4,7 @@ import Blogs from './Blogs';
 import Stats from './Stats';
 import Header from './header';
 import About from './about';
+import BlogsPage from './BlogsPage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,6 +23,9 @@ export default function Page() {
           </Route>
           <Route exact path="/about">
             <About />
+          </Route>
+          <Route exact path="/blogs">
+            <BlogsPage />
           </Route>
         </Switch>
       </div>
