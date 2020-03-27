@@ -1,7 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import Modal from 'react-responsive-modal';
-import BlogModal from './Blogs';
+import BlogModal from './BlogModal';
+
+function Tables(props) {
+  const len = props.data.length / 3
+  return <p>{len}</p>
+}
 
 export default class BlogsPage extends React.Component {
     constructor(props) {
@@ -12,8 +17,9 @@ export default class BlogsPage extends React.Component {
     }
       render() {
         return (
-          <div>
-            <h1>Latest blogs</h1>
+          <div className="About-Body">
+            <h1>Blogs</h1>
+            <Tables data={this.state.data}/>
             <table className="BlogTable">
               <tr>
                 {this.state.data.map( (item, i) => (

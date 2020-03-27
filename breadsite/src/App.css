@@ -37,6 +37,7 @@
   align-content: center;
   cursor:pointer;
   text-decoration:underline;
+  margin: 0px;
 }
 
 .BlogTitle:hover {
@@ -45,7 +46,7 @@
 }
 
 .BlogTitleRow {
-  text-align: center;  
+  text-align: center;
 }
 
 .BlogImage {
